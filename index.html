@@ -1974,9 +1974,165 @@
     opacity: 1;
     transform: translateY(0);
   }
+
+  /* ===== 読みやすいモード 切替ボタン ===== */
+  .readable-toggle {
+    position: fixed;
+    top: 14px;
+    right: 14px;
+    z-index: 9999;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: var(--paper);
+    color: var(--ink);
+    border: 1px solid var(--gold);
+    border-radius: 999px;
+    font-family: var(--gothic);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .readable-toggle:hover,
+  .readable-toggle:focus-visible {
+    background: var(--vermilion);
+    color: var(--paper);
+    outline: none;
+    transform: translateY(-1px);
+  }
+
+  .readable-toggle .icon {
+    font-size: 15px;
+    line-height: 1;
+  }
+
+  body.readable-mode .readable-toggle {
+    background: var(--vermilion);
+    color: var(--paper);
+    border-color: var(--vermilion);
+  }
+
+  @media (max-width: 600px) {
+    .readable-toggle {
+      top: 10px;
+      right: 10px;
+      padding: 9px 13px;
+      font-size: 12.5px;
+    }
+  }
+
+  /* ===== 読みやすいモード：スマホで文字を見やすく ===== */
+  body.readable-mode {
+    background: #1a1712;
+    color: #fdf5e2;
+    line-height: 2;
+    font-weight: 400;
+    font-size: 17px;
+  }
+
+  body.readable-mode::before,
+  body.readable-mode::after {
+    display: none;
+  }
+
+  body.readable-mode .hero-kanji,
+  body.readable-mode .floating-kanji,
+  body.readable-mode .landmine-bg,
+  body.readable-mode .landmine-huge,
+  body.readable-mode .kabu-char {
+    display: none !important;
+  }
+
+  body.readable-mode p,
+  body.readable-mode li,
+  body.readable-mode dd,
+  body.readable-mode dt,
+  body.readable-mode .hero-sub,
+  body.readable-mode .foundation-intro,
+  body.readable-mode .classify-desc,
+  body.readable-mode .advice-card-body,
+  body.readable-mode .technique-body,
+  body.readable-mode .toc-desc,
+  body.readable-mode .compare-note,
+  body.readable-mode .analogy-conclusion,
+  body.readable-mode .stop-banner-body,
+  body.readable-mode .landmine-sub {
+    color: #fdf5e2;
+    font-size: 17px;
+    line-height: 2;
+    letter-spacing: 0.02em;
+    font-weight: 400;
+  }
+
+  body.readable-mode strong {
+    color: #ffd98a !important;
+    font-weight: 700;
+  }
+
+  body.readable-mode h1,
+  body.readable-mode h2,
+  body.readable-mode h3,
+  body.readable-mode .hero h1,
+  body.readable-mode .foundation-title,
+  body.readable-mode .section-title,
+  body.readable-mode .toc-title,
+  body.readable-mode .advice-title,
+  body.readable-mode .classify-title {
+    color: #fff6de;
+    letter-spacing: 0.02em;
+    line-height: 1.45;
+  }
+
+  body.readable-mode .hero h1 {
+    font-size: clamp(30px, 7vw, 52px);
+  }
+
+  body.readable-mode .landmine-warning,
+  body.readable-mode .stop-banner,
+  body.readable-mode .analogy-box,
+  body.readable-mode .advice-card,
+  body.readable-mode .technique,
+  body.readable-mode .compare-col,
+  body.readable-mode .toc-item,
+  body.readable-mode .letter {
+    background: rgba(255, 246, 222, 0.04);
+    border-color: rgba(255, 246, 222, 0.18);
+  }
+
+  @media (max-width: 600px) {
+    body.readable-mode {
+      font-size: 18px;
+    }
+    body.readable-mode p,
+    body.readable-mode li,
+    body.readable-mode .hero-sub,
+    body.readable-mode .foundation-intro,
+    body.readable-mode .advice-card-body,
+    body.readable-mode .technique-body,
+    body.readable-mode .stop-banner-body,
+    body.readable-mode .landmine-sub {
+      font-size: 17px;
+      line-height: 2;
+    }
+    body.readable-mode .hero h1 {
+      font-size: 30px;
+      line-height: 1.5;
+    }
+  }
 </style>
 </head>
 <body>
+
+<button type="button" class="readable-toggle" id="readableToggle" aria-pressed="false" aria-label="読みやすい表示に切り替え">
+  <span class="icon" aria-hidden="true">A</span>
+  <span class="label">読みやすい表示</span>
+</button>
 
 <main>
 
@@ -2841,6 +2997,29 @@
 </main>
 
 <script>
+  // 読みやすいモード切替
+  (function () {
+    const STORAGE_KEY = 'readableMode';
+    const btn = document.getElementById('readableToggle');
+    const labelEl = btn.querySelector('.label');
+
+    function apply(enabled) {
+      document.body.classList.toggle('readable-mode', enabled);
+      btn.setAttribute('aria-pressed', enabled ? 'true' : 'false');
+      labelEl.textContent = enabled ? '通常の表示' : '読みやすい表示';
+    }
+
+    let saved = false;
+    try { saved = localStorage.getItem(STORAGE_KEY) === '1'; } catch (e) {}
+    apply(saved);
+
+    btn.addEventListener('click', () => {
+      const next = !document.body.classList.contains('readable-mode');
+      apply(next);
+      try { localStorage.setItem(STORAGE_KEY, next ? '1' : '0'); } catch (e) {}
+    });
+  })();
+
   // Scroll reveal with stagger support
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
