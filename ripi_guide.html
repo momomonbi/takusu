@@ -2044,9 +2044,39 @@
   body.readable-mode .hero-kanji,
   body.readable-mode .floating-kanji,
   body.readable-mode .landmine-bg,
-  body.readable-mode .landmine-huge,
   body.readable-mode .kabu-char {
     display: none !important;
+  }
+
+  /* 巨大テキストの装飾は抑えつつ、文章の一部として読めるサイズに */
+  body.readable-mode .landmine-huge {
+    display: inline;
+    font-size: 1.2em;
+    color: #ff8a6f;
+    text-shadow: none;
+    animation: none;
+    letter-spacing: 0.02em;
+    padding: 0;
+  }
+
+  body.readable-mode .landmine-main {
+    font-size: clamp(20px, 5vw, 28px);
+    line-height: 1.8;
+    color: #fff6de;
+  }
+
+  /* reveal のフェードイン初期状態で文字が読めないのを防ぐ */
+  body.readable-mode .reveal,
+  body.readable-mode .reveal-left,
+  body.readable-mode .reveal-right,
+  body.readable-mode .reveal-scale {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  body.readable-mode .stop-banner-title,
+  body.readable-mode .stop-banner-label {
+    color: #fff6de;
   }
 
   body.readable-mode p,
