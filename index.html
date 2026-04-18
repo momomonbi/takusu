@@ -1,0 +1,2900 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>お互いのデジタル終活 — プライバシーと引き継ぎの手引き</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #141210;
+    --ink-2: #1d1a16;
+    --ink-3: #2a2620;
+    --paper: #f0e8d8;
+    --paper-dim: #d8ceba;
+    --paper-fade: #9a8e78;
+    --vermilion: #c0432a;
+    --vermilion-deep: #8a2e1d;
+    --gold: #b89558;
+    --gold-dim: #8a6f40;
+    --green: #8fb896;
+    --blue: #6b8caf;
+    --line: #4a4238;
+    --mincho: 'Shippori Mincho', 'Yu Mincho', serif;
+    --gothic: 'Zen Kaku Gothic New', 'Hiragino Sans', sans-serif;
+    --display: 'Fraunces', 'Shippori Mincho', serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--gothic);
+    background: var(--ink);
+    color: var(--paper);
+    line-height: 1.8;
+    font-weight: 300;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(184, 149, 88, 0.08) 0%, transparent 45%),
+      radial-gradient(ellipse at 85% 80%, rgba(192, 67, 42, 0.06) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.95 0 0 0 0 0.9 0 0 0 0 0.8 0 0 0 0.04 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: overlay;
+  }
+
+  main { position: relative; z-index: 2; }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 24px;
+    position: relative;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .hero-marks {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--display);
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: auto;
+    padding-bottom: 60px;
+  }
+
+  .hero-marks .dot {
+    width: 6px;
+    height: 6px;
+    background: var(--vermilion);
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 8px;
+    vertical-align: middle;
+  }
+
+  .hero-kanji {
+    position: absolute;
+    font-family: var(--mincho);
+    font-weight: 800;
+    font-size: clamp(200px, 45vw, 480px);
+    color: var(--ink-3);
+    line-height: 0.85;
+    top: 50%;
+    right: -5%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: -1;
+    letter-spacing: -0.05em;
+  }
+
+  .hero-content { max-width: 900px; }
+
+  .hero-label {
+    font-family: var(--mincho);
+    font-size: 13px;
+    color: var(--vermilion);
+    letter-spacing: 0.4em;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .hero-label::before {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--vermilion);
+  }
+
+  .hero h1 {
+    font-family: var(--mincho);
+    font-weight: 700;
+    font-size: clamp(42px, 8vw, 84px);
+    line-height: 1.15;
+    letter-spacing: 0.02em;
+    color: var(--paper);
+    margin-bottom: 28px;
+  }
+
+  .hero h1 .accent {
+    color: var(--vermilion);
+    background: linear-gradient(transparent 85%, var(--gold) 85%, var(--gold) 92%, transparent 92%);
+    padding: 0 2px;
+  }
+
+  .hero-sub {
+    font-family: var(--mincho);
+    font-size: clamp(15px, 1.8vw, 19px);
+    color: var(--paper-dim);
+    line-height: 2;
+    max-width: 640px;
+    margin-bottom: 48px;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+    font-family: var(--display);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+  }
+
+  .hero-meta span strong {
+    display: block;
+    color: var(--paper);
+    font-size: 16px;
+    margin-top: 6px;
+    letter-spacing: 0.05em;
+    font-family: var(--mincho);
+    text-transform: none;
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--display);
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    animation: fadeInOut 2.5s ease-in-out infinite;
+  }
+
+  .scroll-indicator::after {
+    content: '';
+    width: 1px;
+    height: 32px;
+    background: linear-gradient(var(--gold), transparent);
+  }
+
+  @keyframes fadeInOut {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  /* Hero entrance animations */
+  .hero-label, .hero h1, .hero-sub, .hero-meta {
+    opacity: 0;
+    animation: hero-rise 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+
+  .hero-label { animation-delay: 0.1s; }
+  .hero h1 { animation-delay: 0.3s; }
+  .hero-sub { animation-delay: 0.6s; }
+  .hero-meta { animation-delay: 0.9s; }
+
+  @keyframes hero-rise {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Hero kanji floating */
+  .hero-kanji {
+    animation: hero-kanji-drift 14s ease-in-out infinite;
+  }
+
+  @keyframes hero-kanji-drift {
+    0%, 100% { transform: translateY(-50%) translateX(0); }
+    50% { transform: translateY(-48%) translateX(-8px); }
+  }
+
+  /* Underline grow on accent */
+  .hero h1 .accent {
+    background-size: 0% 100%;
+    background-repeat: no-repeat;
+    animation: grow-underline 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 1.2s forwards;
+  }
+
+  @keyframes grow-underline {
+    from { background-size: 0% 100%; }
+    to { background-size: 100% 100%; }
+  }
+
+  /* ===== FOUNDATION ===== */
+  .foundation {
+    padding: 120px 24px;
+    position: relative;
+    background: linear-gradient(180deg, var(--ink) 0%, var(--ink-2) 50%, var(--ink) 100%);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .foundation-inner { max-width: 1100px; margin: 0 auto; }
+
+  .foundation-label {
+    text-align: center;
+    margin-bottom: 24px;
+    font-family: var(--display);
+    font-size: 12px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .foundation-title {
+    font-family: var(--mincho);
+    font-weight: 700;
+    font-size: clamp(32px, 5vw, 52px);
+    text-align: center;
+    letter-spacing: 0.05em;
+    line-height: 1.4;
+    color: var(--paper);
+    margin-bottom: 24px;
+  }
+
+  .foundation-title .line-em {
+    position: relative;
+    display: inline-block;
+  }
+
+  .foundation-title .line-em::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--vermilion);
+  }
+
+  .foundation-intro {
+    font-family: var(--mincho);
+    font-size: 16px;
+    line-height: 2.1;
+    color: var(--paper-dim);
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 80px;
+    letter-spacing: 0.03em;
+  }
+
+  .principles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 32px;
+    margin-bottom: 60px;
+  }
+
+  .principle {
+    background: var(--ink);
+    border: 1px solid var(--line);
+    padding: 40px 28px 32px;
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+  }
+
+  .principle:hover {
+    border-color: var(--gold-dim);
+    transform: translateY(-4px);
+  }
+
+  .principle-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 20px;
+  }
+
+  .principle-icon svg { width: 100%; height: 100%; }
+
+  .principle-num {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--vermilion);
+    letter-spacing: 0.3em;
+    margin-bottom: 14px;
+  }
+
+  .principle h3 {
+    font-family: var(--mincho);
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--paper);
+    margin-bottom: 16px;
+    letter-spacing: 0.05em;
+    line-height: 1.5;
+  }
+
+  .principle p {
+    font-size: 14px;
+    line-height: 1.9;
+    color: var(--paper-dim);
+  }
+
+  .principle p strong {
+    color: var(--paper);
+  }
+
+  /* ===== LETTER ===== */
+  .letter {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 120px 24px;
+    position: relative;
+  }
+
+  .letter-seal {
+    font-family: var(--mincho);
+    font-size: 14px;
+    color: var(--vermilion);
+    letter-spacing: 0.5em;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .letter-body {
+    font-family: var(--mincho);
+    font-size: 17px;
+    line-height: 2.2;
+    color: var(--paper);
+    letter-spacing: 0.04em;
+  }
+
+  .letter-body p { margin-bottom: 24px; }
+  .letter-body p.indent { text-indent: 1em; }
+
+  .letter-signature {
+    text-align: center;
+    margin-top: 48px;
+    font-family: var(--mincho);
+    color: var(--gold);
+    font-size: 15px;
+    letter-spacing: 0.4em;
+  }
+
+  /* ===== TABLE OF CONTENTS ===== */
+  .toc-section {
+    padding: 100px 24px 60px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .toc-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .toc-kicker {
+    font-family: var(--display);
+    font-size: 12px;
+    letter-spacing: 0.5em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .toc-title {
+    font-family: var(--mincho);
+    font-weight: 700;
+    font-size: clamp(28px, 4vw, 40px);
+    color: var(--paper);
+    letter-spacing: 0.15em;
+    margin-bottom: 16px;
+  }
+
+  .toc-desc {
+    font-family: var(--mincho);
+    font-size: 13px;
+    color: var(--paper-fade);
+    letter-spacing: 0.05em;
+  }
+
+  .toc-list {
+    list-style: none;
+    border-top: 1px solid var(--line);
+  }
+
+  .toc-item {
+    display: grid;
+    grid-template-columns: 70px 1fr auto;
+    gap: 24px;
+    padding: 22px 20px;
+    border-bottom: 1px solid var(--line);
+    align-items: center;
+    text-decoration: none;
+    color: var(--paper);
+    transition: background 0.3s ease, padding-left 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .toc-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--vermilion);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .toc-item:hover {
+    background: var(--ink-2);
+    padding-left: 32px;
+  }
+
+  .toc-item:hover::before {
+    transform: scaleY(1);
+  }
+
+  /* Wall step flow visual - pulse on current */
+  .wall-step.current {
+    border-color: var(--vermilion);
+    background: linear-gradient(135deg, rgba(192, 67, 42, 0.08) 0%, var(--ink) 100%);
+    animation: pulse-border 2.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse-border {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(192, 67, 42, 0.5); }
+    50% { box-shadow: 0 0 0 6px rgba(192, 67, 42, 0); }
+  }
+
+  .toc-num {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 32px;
+    color: var(--vermilion);
+    line-height: 1;
+    text-align: center;
+  }
+
+  .toc-num.jp {
+    font-family: var(--mincho);
+    font-style: normal;
+    font-size: 26px;
+    font-weight: 700;
+  }
+
+  .toc-main {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .toc-main-title {
+    font-family: var(--mincho);
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--paper);
+    letter-spacing: 0.05em;
+  }
+
+  .toc-main-title .toc-chip {
+    display: inline-block;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    padding: 2px 8px;
+    margin-left: 10px;
+    vertical-align: middle;
+    border-radius: 2px;
+    font-weight: 400;
+  }
+
+  .toc-chip.urgent {
+    background: var(--vermilion);
+    color: var(--paper);
+  }
+
+  .toc-chip.key {
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--gold-dim);
+  }
+
+  .toc-main-sub {
+    font-size: 12.5px;
+    color: var(--paper-fade);
+    letter-spacing: 0.03em;
+    line-height: 1.6;
+  }
+
+  .toc-arrow {
+    font-size: 22px;
+    color: var(--gold-dim);
+    transition: transform 0.2s, color 0.2s;
+    font-family: var(--mincho);
+  }
+
+  .toc-item:hover .toc-arrow {
+    color: var(--vermilion);
+    transform: translateX(5px);
+  }
+
+  .toc-divider {
+    padding: 14px 20px;
+    font-family: var(--display);
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--line);
+    background: var(--ink-2);
+  }
+
+  .toc-divider::before {
+    content: '— ';
+    color: var(--vermilion);
+  }
+
+  .toc-divider::after {
+    content: ' —';
+    color: var(--vermilion);
+  }
+
+  @media (max-width: 640px) {
+    .toc-item {
+      grid-template-columns: 45px 1fr auto;
+      gap: 14px;
+      padding: 18px 10px;
+    }
+    .toc-num { font-size: 22px; }
+    .toc-num.jp { font-size: 20px; }
+    .toc-main-title { font-size: 14.5px; letter-spacing: 0.02em; }
+    .toc-main-title .toc-chip { font-size: 8px; padding: 1px 6px; margin-left: 6px; }
+    .toc-main-sub { font-size: 11px; }
+    .toc-arrow { font-size: 18px; }
+  }
+
+  /* ===== ADVICE SECTION ===== */
+  .advice-section {
+    padding: 100px 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .advice-section::before {
+    content: '';
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, var(--gold));
+  }
+
+  .advice-header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .advice-mark {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 24px;
+    position: relative;
+  }
+
+  .advice-mark svg { width: 100%; height: 100%; }
+
+  .advice-mark .pulse-ring {
+    transform-origin: center;
+    animation: pulse-ring 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse-ring {
+    0%, 100% { transform: scale(1); opacity: 0.3; }
+    50% { transform: scale(1.15); opacity: 0; }
+  }
+
+  .advice-mark .draw-path {
+    stroke-dasharray: 30;
+    stroke-dashoffset: 30;
+    animation: draw-check 1.2s ease-out 0.5s forwards;
+  }
+
+  @keyframes draw-check {
+    to { stroke-dashoffset: 0; }
+  }
+
+  .advice-kicker {
+    font-family: var(--display);
+    font-size: 12px;
+    letter-spacing: 0.45em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .advice-title {
+    font-family: var(--mincho);
+    font-weight: 700;
+    font-size: clamp(30px, 5vw, 44px);
+    color: var(--paper);
+    letter-spacing: 0.08em;
+    line-height: 1.4;
+  }
+
+  .advice-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .advice-card {
+    background: var(--ink-2);
+    border: 1px solid var(--line);
+    padding: 32px 26px 28px;
+    position: relative;
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s, box-shadow 0.4s;
+    overflow: hidden;
+  }
+
+  .advice-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--vermilion), transparent);
+    transition: left 0.6s ease;
+  }
+
+  .advice-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--gold-dim);
+    box-shadow: 0 8px 32px rgba(192, 67, 42, 0.08);
+  }
+
+  .advice-card:hover::before {
+    left: 100%;
+  }
+
+  .advice-num {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 44px;
+    color: var(--vermilion);
+    line-height: 1;
+    margin-bottom: 14px;
+    opacity: 0.9;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  .advice-num::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+    margin-left: 4px;
+  }
+
+  .advice-card-title {
+    font-family: var(--mincho);
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--paper);
+    margin-bottom: 14px;
+    letter-spacing: 0.04em;
+    line-height: 1.5;
+  }
+
+  .advice-card-body {
+    font-size: 14.5px;
+    line-height: 1.95;
+    color: var(--paper-dim);
+  }
+
+  .advice-card-body strong {
+    color: var(--paper);
+    font-weight: 500;
+  }
+
+  /* Reveal with stagger */
+  .advice-card.reveal {
+    transition-delay: var(--delay, 0ms);
+  }
+
+  @media (max-width: 640px) {
+    .advice-section { padding: 80px 16px; }
+    .advice-grid { gap: 16px; }
+    .advice-card { padding: 28px 22px 24px; }
+    .advice-num { font-size: 38px; }
+    .advice-card-title { font-size: 17px; }
+    .advice-card-body { font-size: 14px; line-height: 1.9; }
+  }
+
+  /* ===== 株 BIG LABEL ===== */
+  .kabu-label {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    margin: 16px 0 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--vermilion-deep);
+    flex-wrap: wrap;
+  }
+
+  .kabu-char {
+    font-family: var(--mincho);
+    font-weight: 800;
+    font-size: clamp(88px, 16vw, 160px);
+    color: var(--vermilion);
+    line-height: 0.85;
+    letter-spacing: 0;
+    text-shadow: 0 0 40px rgba(192, 67, 42, 0.3);
+    position: relative;
+    animation: kabu-glow 3s ease-in-out infinite;
+  }
+
+  @keyframes kabu-glow {
+    0%, 100% { text-shadow: 0 0 30px rgba(192, 67, 42, 0.25); }
+    50% { text-shadow: 0 0 48px rgba(192, 67, 42, 0.5); }
+  }
+
+  .kabu-en {
+    font-family: var(--display);
+    font-size: 13px;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+    font-style: italic;
+    font-weight: 400;
+    padding-bottom: 8px;
+  }
+
+  @media (max-width: 640px) {
+    .kabu-label {
+      gap: 14px;
+      margin: 12px 0 22px;
+      padding-bottom: 16px;
+    }
+    .kabu-char { font-size: 80px; }
+    .kabu-en { font-size: 11.5px; letter-spacing: 0.25em; }
+  }
+
+  /* ===== LANDMINE WARNING (最大の地雷) ===== */
+  .landmine-warning {
+    position: relative;
+    margin: 0 -8px 40px;
+    padding: 48px 36px;
+    background:
+      radial-gradient(ellipse at center, rgba(192,67,42,0.18) 0%, rgba(192,67,42,0.04) 60%, transparent 100%),
+      var(--ink);
+    border: 2px solid var(--vermilion-deep);
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .landmine-bg {
+    position: absolute;
+    inset: 0;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .landmine-bg svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .landmine-inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  .landmine-label {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    color: var(--vermilion);
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(192,67,42,0.4);
+    display: inline-block;
+    padding-right: 0;
+  }
+
+  .landmine-main {
+    font-family: var(--mincho);
+    font-weight: 700;
+    font-size: clamp(22px, 4vw, 32px);
+    line-height: 1.5;
+    color: var(--paper);
+    letter-spacing: 0.05em;
+    margin-bottom: 16px;
+  }
+
+  .landmine-huge {
+    display: inline-block;
+    font-size: clamp(44px, 9vw, 84px);
+    line-height: 1;
+    color: var(--vermilion);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-shadow: 0 0 24px rgba(192,67,42,0.4);
+    padding: 8px 0;
+    animation: landmine-pulse 2.5s ease-in-out infinite;
+  }
+
+  @keyframes landmine-pulse {
+    0%, 100% { text-shadow: 0 0 24px rgba(192,67,42,0.4); transform: scale(1); }
+    50% { text-shadow: 0 0 32px rgba(192,67,42,0.7); transform: scale(1.02); }
+  }
+
+  .landmine-sub {
+    font-family: var(--mincho);
+    font-size: 14.5px;
+    color: var(--paper-dim);
+    line-height: 1.8;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(192,67,42,0.3);
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media (max-width: 640px) {
+    .landmine-warning { padding: 36px 20px; margin: 0 0 32px; }
+    .landmine-label { font-size: 10px; letter-spacing: 0.3em; margin-bottom: 14px; }
+    .landmine-sub { font-size: 13.5px; line-height: 1.75; }
+  }
+
+  /* ===== ANALOGY BOX (主婦向け例え話) ===== */
+  .analogy-box {
+    background: linear-gradient(180deg, var(--ink-2) 0%, var(--ink) 100%);
+    border: 1px solid var(--gold-dim);
+    padding: 32px 28px;
+    margin: 32px 0;
+    position: relative;
+  }
+
+  .analogy-box::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 24px;
+    right: 24px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .analogy-label {
+    font-family: var(--mincho);
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--gold);
+    margin-bottom: 24px;
+    letter-spacing: 0.05em;
+    text-align: center;
+  }
+
+  .analogy-compare {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 20px;
+    align-items: stretch;
+    margin-bottom: 24px;
+  }
+
+  @media (max-width: 720px) {
+    .analogy-compare {
+      grid-template-columns: 1fr;
+    }
+    .analogy-arrow {
+      text-align: center;
+      transform: rotate(90deg);
+    }
+  }
+
+  .analogy-col {
+    padding: 24px 22px;
+    border-radius: 4px;
+    position: relative;
+  }
+
+  .analogy-col.safe {
+    background: linear-gradient(135deg, rgba(143,184,150,0.08) 0%, transparent 100%);
+    border: 1px solid rgba(143,184,150,0.3);
+  }
+
+  .analogy-col.danger {
+    background: linear-gradient(135deg, rgba(192,67,42,0.1) 0%, transparent 100%);
+    border: 1px solid rgba(192,67,42,0.5);
+  }
+
+  .analogy-col-label {
+    font-family: var(--display);
+    font-size: 10.5px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .analogy-col.safe .analogy-col-label { color: var(--green); }
+  .analogy-col.danger .analogy-col-label { color: var(--vermilion); }
+
+  .analogy-col-title {
+    font-family: var(--mincho);
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--paper);
+    margin-bottom: 14px;
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+  }
+
+  .analogy-col p {
+    font-size: 13.5px;
+    line-height: 1.95;
+    color: var(--paper-dim);
+    margin: 0;
+  }
+
+  .analogy-col p strong {
+    color: var(--paper);
+    font-weight: 500;
+  }
+
+  .analogy-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: var(--gold);
+    font-weight: 400;
+    font-family: var(--mincho);
+    padding: 0 8px;
+  }
+
+  .analogy-conclusion {
+    padding: 18px 22px;
+    background: rgba(192,67,42,0.08);
+    border-left: 3px solid var(--vermilion);
+    font-size: 14px;
+    line-height: 1.9;
+    color: var(--paper-dim);
+  }
+
+  .analogy-conclusion strong {
+    color: var(--paper);
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  @media (max-width: 640px) {
+    .analogy-box { padding: 26px 20px; }
+    .analogy-label { font-size: 15px; }
+    .analogy-col { padding: 20px 18px; }
+    .analogy-col-title { font-size: 16.5px; }
+    .analogy-col p { font-size: 13px; }
+    .analogy-conclusion { font-size: 13.5px; padding: 16px 18px; }
+  }
+
+  /* ===== STOP BANNER (最重要) ===== */
+  .stop-banner {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 24px;
+    padding: 28px 28px;
+    background: linear-gradient(135deg, rgba(192,67,42,0.15) 0%, rgba(192,67,42,0.05) 100%);
+    border: 2px solid var(--vermilion);
+    margin-bottom: 40px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stop-banner::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    width: 6px;
+    background: var(--vermilion);
+    animation: banner-pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes banner-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .stop-banner-icon {
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+  }
+
+  .stop-banner-icon svg {
+    width: 100%;
+    height: 100%;
+    animation: stop-shake 4s ease-in-out infinite;
+  }
+
+  @keyframes stop-shake {
+    0%, 94%, 100% { transform: rotate(0); }
+    95% { transform: rotate(-3deg); }
+    97% { transform: rotate(3deg); }
+  }
+
+  .stop-banner-label {
+    font-family: var(--display);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.4em;
+    color: var(--vermilion);
+    margin-bottom: 8px;
+  }
+
+  .stop-banner-title {
+    font-family: var(--mincho);
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--paper);
+    line-height: 1.4;
+    margin-bottom: 12px;
+    letter-spacing: 0.04em;
+  }
+
+  .stop-banner-body {
+    font-size: 14.5px;
+    line-height: 1.95;
+    color: var(--paper-dim);
+  }
+
+  .stop-banner-body strong {
+    color: var(--paper);
+  }
+
+  @media (max-width: 640px) {
+    .stop-banner {
+      grid-template-columns: 56px 1fr;
+      gap: 16px;
+      padding: 22px 20px;
+    }
+    .stop-banner-icon { width: 56px; height: 56px; }
+    .stop-banner-label { font-size: 10.5px; letter-spacing: 0.3em; }
+    .stop-banner-title { font-size: 18px; line-height: 1.45; }
+    .stop-banner-body { font-size: 13.5px; line-height: 1.85; }
+  }
+
+  /* ===== FLOATING DECORATION ===== */
+  .floating-kanji {
+    position: absolute;
+    font-family: var(--mincho);
+    font-weight: 700;
+    color: var(--ink-3);
+    pointer-events: none;
+    z-index: 0;
+    line-height: 1;
+    user-select: none;
+  }
+
+  .floating-kanji.f1 {
+    top: 10%;
+    right: -30px;
+    font-size: 180px;
+    opacity: 0.5;
+    animation: float-slow 12s ease-in-out infinite;
+  }
+
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(-1deg); }
+  }
+
+  /* ===== NEW ANIMATIONS ===== */
+
+  /* Enhanced reveal variations */
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .reveal-scale {
+    opacity: 0;
+    transform: scale(0.92);
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .reveal-left.visible, .reveal-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .reveal-scale.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Pulse glow for urgent elements */
+  .pulse-glow {
+    animation: pulse-glow 2.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(192, 67, 42, 0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(192, 67, 42, 0); }
+  }
+
+  /* Shimmer on key cards */
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  /* ===== SECTIONS ===== */
+  .section {
+    padding: 100px 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .section-header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 32px;
+    align-items: baseline;
+    margin-bottom: 64px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 32px;
+  }
+
+  .section-num {
+    font-family: var(--display);
+    font-weight: 400;
+    font-style: italic;
+    font-size: clamp(60px, 10vw, 120px);
+    color: var(--vermilion);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+  }
+
+  .section-title-group { padding-top: 24px; }
+
+  .section-kicker {
+    font-family: var(--display);
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: var(--mincho);
+    font-weight: 700;
+    font-size: clamp(28px, 4.5vw, 44px);
+    letter-spacing: 0.03em;
+    line-height: 1.3;
+    color: var(--paper);
+  }
+
+  .section-sub {
+    font-family: var(--mincho);
+    font-size: 15px;
+    color: var(--paper-dim);
+    margin-top: 16px;
+    line-height: 1.9;
+  }
+
+  /* ===== CLASSIFY ===== */
+  .classify-section {
+    background: var(--ink-2);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 120px 24px;
+  }
+
+  .classify-inner { max-width: 1200px; margin: 0 auto; }
+
+  .classify-intro { text-align: center; margin-bottom: 72px; }
+
+  .classify-kicker {
+    font-family: var(--display);
+    font-size: 12px;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .classify-title {
+    font-family: var(--mincho);
+    font-weight: 700;
+    font-size: clamp(28px, 4.5vw, 42px);
+    color: var(--paper);
+    letter-spacing: 0.05em;
+    line-height: 1.4;
+    margin-bottom: 24px;
+  }
+
+  .classify-desc {
+    font-family: var(--mincho);
+    font-size: 16px;
+    line-height: 2.1;
+    color: var(--paper-dim);
+    max-width: 700px;
+    margin: 0 auto;
+    letter-spacing: 0.03em;
+  }
+
+  .compare-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin: 60px 0 48px;
+    border: 1px solid var(--line);
+    position: relative;
+  }
+
+  @media (max-width: 760px) {
+    .compare-box { grid-template-columns: 1fr; }
+    .compare-box .vs-mark { display: none; }
+  }
+
+  .compare-box .vs-mark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    background: var(--ink);
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mincho);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    z-index: 10;
+  }
+
+  .compare-col { padding: 48px 36px; position: relative; }
+  .compare-col.share {
+    background: linear-gradient(135deg, rgba(143, 184, 150, 0.06) 0%, transparent 100%);
+    border-right: 1px solid var(--line);
+  }
+  .compare-col.private {
+    background: linear-gradient(225deg, rgba(192, 67, 42, 0.06) 0%, transparent 100%);
+  }
+  @media (max-width: 760px) {
+    .compare-col.share { border-right: none; border-bottom: 1px solid var(--line); }
+  }
+
+  .compare-badge {
+    display: inline-block;
+    font-family: var(--display);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    margin-bottom: 16px;
+    border-radius: 2px;
+  }
+  .compare-badge.share { background: rgba(143, 184, 150, 0.12); color: var(--green); border: 1px solid rgba(143, 184, 150, 0.4); }
+  .compare-badge.private { background: rgba(192, 67, 42, 0.12); color: var(--vermilion); border: 1px solid var(--vermilion-deep); }
+
+  .compare-col h4 {
+    font-family: var(--mincho);
+    font-weight: 700;
+    font-size: 26px;
+    color: var(--paper);
+    margin-bottom: 14px;
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+  }
+
+  .compare-col .compare-sub {
+    font-family: var(--mincho);
+    font-size: 14px;
+    color: var(--paper-dim);
+    line-height: 1.9;
+    margin-bottom: 28px;
+  }
+
+  .compare-list { list-style: none; margin-bottom: 24px; }
+  .compare-list li {
+    padding: 12px 0 12px 28px;
+    position: relative;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--paper);
+    border-bottom: 1px dashed var(--line);
+  }
+  .compare-list li:last-child { border-bottom: none; }
+  .compare-col.share .compare-list li::before { content: '○'; position: absolute; left: 0; top: 12px; color: var(--green); font-family: var(--mincho); }
+  .compare-col.private .compare-list li::before { content: '×'; position: absolute; left: 0; top: 12px; color: var(--vermilion); font-family: var(--mincho); }
+
+  .compare-note {
+    background: var(--ink);
+    padding: 16px 20px;
+    border-left: 3px solid var(--gold);
+    font-size: 13px;
+    color: var(--paper-dim);
+    line-height: 1.8;
+    margin-top: 8px;
+  }
+  .compare-note strong { color: var(--paper); font-family: var(--mincho); font-weight: 500; }
+
+  /* ===== PRIVACY TECHNIQUES (お互いのプライバシー保護) ===== */
+  .privacy-section {
+    padding: 120px 24px;
+    position: relative;
+  }
+
+  .privacy-inner { max-width: 1100px; margin: 0 auto; }
+
+  .technique-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  .technique {
+    background: var(--ink-2);
+    border: 1px solid var(--line);
+    padding: 32px 28px;
+    position: relative;
+    transition: border-color 0.3s ease;
+  }
+
+  .technique:hover { border-color: var(--gold-dim); }
+
+  .technique-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .technique-icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    background: var(--ink);
+    border: 1px solid var(--gold-dim);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .technique-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .technique-title {
+    font-family: var(--mincho);
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--paper);
+    line-height: 1.5;
+    letter-spacing: 0.03em;
+  }
+
+  .technique-body {
+    font-size: 14px;
+    line-height: 1.95;
+    color: var(--paper-dim);
+  }
+
+  .technique-body strong { color: var(--paper); font-weight: 500; }
+
+  .technique-tag {
+    display: inline-block;
+    font-family: var(--display);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    border: 1px solid var(--gold-dim);
+    padding: 3px 10px;
+    margin-top: 14px;
+    border-radius: 2px;
+  }
+
+  /* ===== WALL SECTION (アプリ壁の突破方法) ===== */
+  .wall-section {
+    background: var(--ink-2);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 120px 24px;
+  }
+
+  .wall-inner { max-width: 1100px; margin: 0 auto; }
+
+  /* 壁のビジュアルフロー */
+  .wall-visual {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    margin: 56px 0;
+    position: relative;
+  }
+
+  @media (max-width: 760px) {
+    .wall-visual { grid-template-columns: 1fr; }
+    .wall-step::after { display: none !important; }
+  }
+
+  .wall-step {
+    padding: 24px 16px;
+    background: var(--ink);
+    border: 1px solid var(--line);
+    text-align: center;
+    position: relative;
+  }
+
+  .wall-step:not(:last-child)::after {
+    content: '→';
+    position: absolute;
+    right: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 24px;
+    color: var(--vermilion);
+    background: var(--ink-2);
+    padding: 4px 2px;
+    z-index: 5;
+  }
+
+  .wall-step-num {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 12px;
+    color: var(--vermilion);
+    margin-bottom: 8px;
+  }
+
+  .wall-step-icon {
+    width: 36px;
+    height: 36px;
+    margin: 0 auto 10px;
+    opacity: 0.85;
+  }
+
+  .wall-step-title {
+    font-family: var(--mincho);
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--paper);
+    line-height: 1.5;
+    margin-bottom: 6px;
+  }
+
+  .wall-step-sub {
+    font-size: 11px;
+    color: var(--paper-fade);
+    line-height: 1.5;
+  }
+
+  .wall-step.passed {
+    background: linear-gradient(135deg, rgba(143, 184, 150, 0.08) 0%, var(--ink) 100%);
+    border-color: rgba(143, 184, 150, 0.3);
+  }
+
+  /* 各アプリの突破方法 */
+  .app-wall-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  .app-wall {
+    background: var(--ink);
+    border: 1px solid var(--line);
+    padding: 32px 28px;
+    position: relative;
+  }
+
+  .app-wall-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .app-wall-name {
+    font-family: var(--mincho);
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--paper);
+    letter-spacing: 0.05em;
+  }
+
+  .app-wall-difficulty {
+    font-family: var(--display);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    padding: 3px 10px;
+    border-radius: 2px;
+  }
+
+  .difficulty-easy { background: rgba(143, 184, 150, 0.15); color: var(--green); border: 1px solid rgba(143, 184, 150, 0.4); }
+  .difficulty-mid { background: rgba(184, 149, 88, 0.15); color: var(--gold); border: 1px solid var(--gold-dim); }
+  .difficulty-hard { background: rgba(192, 67, 42, 0.15); color: var(--vermilion); border: 1px solid var(--vermilion-deep); }
+
+  .app-wall-steps {
+    list-style: none;
+    counter-reset: step;
+  }
+
+  .app-wall-steps li {
+    counter-increment: step;
+    padding: 10px 0 10px 32px;
+    position: relative;
+    font-size: 13.5px;
+    line-height: 1.8;
+    color: var(--paper-dim);
+    border-bottom: 1px dashed var(--line);
+  }
+
+  .app-wall-steps li:last-child { border-bottom: none; }
+
+  .app-wall-steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 22px;
+    height: 22px;
+    background: var(--ink-2);
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11px;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+
+  .app-wall-steps li strong {
+    color: var(--paper);
+    font-family: var(--mincho);
+    font-weight: 500;
+  }
+
+  /* ===== FX WARNING ===== */
+  .fx-section {
+    padding: 100px 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .fx-card {
+    background: linear-gradient(135deg, rgba(192, 67, 42, 0.1) 0%, var(--ink-2) 100%);
+    border: 2px solid var(--vermilion-deep);
+    padding: 48px 40px;
+    position: relative;
+    margin-top: 48px;
+  }
+
+  .fx-card::before {
+    content: '⚠ URGENT';
+    position: absolute;
+    top: -14px;
+    left: 40px;
+    background: var(--vermilion);
+    color: var(--paper);
+    font-family: var(--display);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    padding: 4px 14px;
+  }
+
+  .fx-card h3 {
+    font-family: var(--mincho);
+    font-weight: 700;
+    font-size: 26px;
+    color: var(--paper);
+    margin-bottom: 20px;
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+  }
+
+  .fx-card p {
+    font-size: 15px;
+    line-height: 2;
+    color: var(--paper-dim);
+    margin-bottom: 18px;
+  }
+
+  .fx-card p strong {
+    color: var(--paper);
+    font-family: var(--mincho);
+    font-weight: 500;
+  }
+
+  .fx-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 28px;
+  }
+
+  .fx-action {
+    background: var(--ink);
+    padding: 20px 18px;
+    border-left: 3px solid var(--vermilion);
+  }
+
+  .fx-action-num {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--vermilion);
+    margin-bottom: 8px;
+  }
+
+  .fx-action-title {
+    font-family: var(--mincho);
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--paper);
+    margin-bottom: 6px;
+    line-height: 1.5;
+  }
+
+  .fx-action-body {
+    font-size: 12.5px;
+    color: var(--paper-dim);
+    line-height: 1.8;
+  }
+
+  /* ===== CHECKLIST ===== */
+  .checklist {
+    background: var(--ink-2);
+    padding: 48px 32px;
+    border: 1px solid var(--gold-dim);
+    margin-top: 48px;
+    position: relative;
+  }
+
+  .checklist-label {
+    position: absolute;
+    top: -12px;
+    left: 32px;
+    background: var(--ink);
+    padding: 0 16px;
+    font-family: var(--display);
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .checklist h3 {
+    font-family: var(--mincho);
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--paper);
+    margin-bottom: 28px;
+    letter-spacing: 0.05em;
+  }
+
+  .check-list { list-style: none; }
+
+  .check-list li {
+    padding: 14px 0 14px 36px;
+    position: relative;
+    font-size: 14.5px;
+    line-height: 1.8;
+    color: var(--paper-dim);
+    border-bottom: 1px dashed var(--line);
+  }
+
+  .check-list li:last-child { border-bottom: none; }
+
+  .check-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 20px;
+    width: 18px;
+    height: 18px;
+    border: 1px solid var(--gold);
+    background: var(--ink);
+  }
+
+  .check-list li::after {
+    content: '✓';
+    position: absolute;
+    left: 3px;
+    top: 16px;
+    color: var(--vermilion);
+    font-weight: 700;
+    font-size: 16px;
+    opacity: 0.3;
+    transition: opacity 0.3s;
+  }
+
+  .check-list li:hover::after { opacity: 1; }
+
+  .check-list li strong {
+    color: var(--paper);
+    font-family: var(--mincho);
+    font-weight: 500;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* ===== ORNAMENT ===== */
+  .ornament {
+    text-align: center;
+    padding: 40px 24px;
+    color: var(--gold-dim);
+    font-size: 12px;
+    letter-spacing: 1em;
+    font-family: var(--mincho);
+  }
+
+  .ornament::before, .ornament::after {
+    content: '';
+    display: inline-block;
+    width: 80px;
+    height: 1px;
+    background: var(--gold-dim);
+    vertical-align: middle;
+    margin: 0 20px;
+  }
+
+  /* ===== FOOTER ===== */
+  .footer-letter {
+    max-width: 720px;
+    margin: 100px auto 0;
+    padding: 80px 24px;
+    text-align: center;
+    border-top: 1px solid var(--line);
+  }
+
+  .footer-letter-mark {
+    font-family: var(--mincho);
+    font-size: 28px;
+    color: var(--vermilion);
+    margin-bottom: 32px;
+    letter-spacing: 0.5em;
+  }
+
+  .footer-letter p {
+    font-family: var(--mincho);
+    font-size: 16px;
+    color: var(--paper-dim);
+    line-height: 2.2;
+    margin-bottom: 24px;
+    letter-spacing: 0.04em;
+  }
+
+  .footer-letter .sign {
+    font-family: var(--mincho);
+    color: var(--gold);
+    font-size: 14px;
+    letter-spacing: 0.3em;
+    margin-top: 48px;
+  }
+
+  .footer-meta {
+    margin-top: 40px;
+    font-family: var(--display);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 640px) {
+    .section-header { grid-template-columns: 1fr; gap: 8px; }
+    .hero { padding: 40px 20px; }
+    .hero-sub { font-size: 15.5px; line-height: 1.95; }
+    .hero-meta { gap: 20px; padding-top: 24px; }
+    .hero-meta span { font-size: 11px; }
+    .hero-meta span strong { font-size: 15px; }
+    .hero-marks { font-size: 10px; padding-bottom: 40px; }
+    .letter { padding: 70px 20px; }
+    .letter-body { font-size: 16px; line-height: 2.05; letter-spacing: 0.03em; }
+    .letter-body p { margin-bottom: 20px; }
+    .letter-seal { font-size: 13px; letter-spacing: 0.4em; }
+    .letter-signature { font-size: 13px; letter-spacing: 0.3em; margin-top: 36px; }
+    .ornament::before, .ornament::after { width: 30px; margin: 0 10px; }
+    .compare-col { padding: 32px 22px; }
+    .compare-col h4 { font-size: 22px; }
+    .compare-col .compare-sub { font-size: 13.5px; }
+    .compare-list li { font-size: 13.5px; padding: 11px 0 11px 24px; }
+    .compare-note { font-size: 12.5px; }
+    .fx-card { padding: 32px 22px; }
+    .fx-card h3 { font-size: 22px; }
+    .fx-card p { font-size: 14.5px; line-height: 1.95; }
+    .fx-action-title { font-size: 14.5px; }
+    .fx-action-body { font-size: 12.5px; line-height: 1.85; }
+    .section { padding: 80px 20px; }
+    .section-title { font-size: 26px; letter-spacing: 0.02em; }
+    .section-sub { font-size: 14.5px; line-height: 1.95; }
+    .section-kicker { font-size: 11px; letter-spacing: 0.25em; }
+    .section-num { font-size: 68px; }
+    .foundation { padding: 80px 20px; }
+    .foundation-title { font-size: 28px; letter-spacing: 0.04em; }
+    .foundation-intro { font-size: 14.5px; line-height: 2; margin-bottom: 56px; }
+    .principle { padding: 32px 24px 28px; }
+    .principle h3 { font-size: 20px; }
+    .principle p { font-size: 13.5px; line-height: 1.95; }
+    .principle-num { font-size: 12px; }
+    .classify-section { padding: 80px 20px; }
+    .classify-title { font-size: 26px; }
+    .classify-desc { font-size: 14.5px; line-height: 1.95; }
+    .wall-section { padding: 80px 20px; }
+    .privacy-section { padding: 80px 20px; }
+    .technique-grid { gap: 18px; }
+    .technique { padding: 26px 22px; }
+    .technique-title { font-size: 16px; }
+    .technique-body { font-size: 13.5px; line-height: 1.9; }
+    .technique-tag { font-size: 10px; padding: 2px 8px; }
+    .app-wall { padding: 26px 22px; }
+    .app-wall-name { font-size: 16.5px; }
+    .app-wall-difficulty { font-size: 10px; padding: 2px 8px; }
+    .app-wall-steps li { font-size: 13.5px; padding: 10px 0 10px 30px; line-height: 1.8; }
+    .app-wall-steps li::before { width: 20px; height: 20px; font-size: 10.5px; }
+    .apple-box { padding: 28px 22px; margin: 32px 0; }
+    .apple-box h4 { font-size: 18px; margin-bottom: 14px; }
+    .apple-box p { font-size: 13.5px; line-height: 1.9; }
+    .flow-step { padding: 16px 14px; }
+    .flow-step-num { font-size: 11px; }
+    .flow-step-title { font-size: 13px; line-height: 1.55; }
+    .access-col { padding: 22px 20px; }
+    .access-col h5 { font-size: 15.5px; }
+    .access-col ul { font-size: 13px; line-height: 1.9; }
+    .warning-section { padding: 64px 20px; margin: 56px 0; }
+    .warning-title { font-size: 24px; letter-spacing: 0.04em; }
+    .warning-card { padding: 24px 20px; }
+    .warning-card h5 { font-size: 15px; }
+    .warning-card p { font-size: 13px; line-height: 1.85; }
+    .checklist { padding: 40px 22px; }
+    .checklist h3 { font-size: 20px; }
+    .check-list li { font-size: 14px; line-height: 1.85; padding: 13px 0 13px 32px; }
+    .checklist-label { font-size: 10px; letter-spacing: 0.25em; }
+    .footer-letter { padding: 64px 20px; }
+    .footer-letter p { font-size: 14.5px; line-height: 2.05; }
+    .footer-letter-mark { font-size: 24px; margin-bottom: 24px; }
+    .footer-letter .sign { font-size: 13px; }
+    .footer-meta { font-size: 9.5px; }
+    .toc-section { padding: 80px 16px 48px; }
+    .toc-title { font-size: 26px; letter-spacing: 0.1em; }
+    .toc-kicker { font-size: 11px; letter-spacing: 0.4em; }
+    .toc-desc { font-size: 12.5px; }
+    .floating-kanji.f1 { font-size: 120px; opacity: 0.35; }
+    .timeline { padding-left: 24px; }
+    .phase::before { left: -24px; }
+    .phase::after { left: -20px; }
+    .phase-title { font-size: 20px; }
+    .phase-when { font-size: 10.5px; padding: 3px 10px; }
+    .card { padding: 26px 22px; }
+    .card-title { font-size: 16.5px; }
+    .card-body { font-size: 13.5px; line-height: 1.85; }
+    .card-num { font-size: 13px; }
+    .card-tag { font-size: 9.5px; padding: 2px 8px; }
+  }
+
+  /* Small phones (≤ 380px) */
+  @media (max-width: 380px) {
+    .hero h1 { font-size: 36px; }
+    .section-title { font-size: 22px; }
+    .foundation-title { font-size: 24px; }
+    .classify-title { font-size: 22px; }
+    .advice-title { font-size: 26px; }
+    .toc-num { font-size: 19px; }
+    .toc-num.jp { font-size: 18px; }
+    .toc-main-title { font-size: 13.5px; }
+    .toc-main-sub { font-size: 10.5px; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<main>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-marks">
+    <span>FOR DANNA <span class="dot"></span> FOR RIPI</span>
+    <span>二 人 の た め に</span>
+  </div>
+
+  <div class="hero-kanji">託</div>
+
+  <div class="hero-content">
+    <div class="hero-label">PRIVACY &amp; INHERITANCE — プライバシーと引き継ぎ</div>
+    <h1>お互いのプライバシーを<br><span class="accent">尊重しながら</span>、<br>引き継ぐ。</h1>
+    <p class="hero-sub">
+      デジタル終活における最大の難題は、<strong style="color: var(--paper);">相手のプライバシーを守ること</strong>と、<br>
+      <strong style="color: var(--paper);">遺された側が実務で困らないこと</strong>の両立。<br>
+      このふたつを、お互いに対して同じように成立させるための手引き。
+    </p>
+    <div class="hero-meta">
+      <span>FOCUS<strong>お互いの権利</strong></span>
+      <span>SCOPE<strong>引き継ぎ実務</strong></span>
+      <span>STYLE<strong>線引きの尊重</strong></span>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">SCROLL</div>
+</section>
+
+<!-- ===== TABLE OF CONTENTS ===== -->
+<section class="toc-section">
+  <div class="toc-header reveal">
+    <div class="toc-kicker">CONTENTS — 目 次</div>
+    <h2 class="toc-title">目 次</h2>
+    <p class="toc-desc">気になるところから読んで大丈夫。順番通りに読む必要はない。</p>
+  </div>
+
+  <ul class="toc-list">
+
+    <li class="toc-divider">導 入 — INTRODUCTION</li>
+
+    <a href="#foundation" class="toc-item reveal">
+      <div class="toc-num">00</div>
+      <div class="toc-main">
+        <div class="toc-main-title">基本方針<span class="toc-chip key">KEY</span></div>
+        <div class="toc-main-sub">この手引きの立ち位置と、三つの前提</div>
+      </div>
+      <div class="toc-arrow">→</div>
+    </a>
+
+    <a href="#letter" class="toc-item reveal">
+      <div class="toc-num">01</div>
+      <div class="toc-main">
+        <div class="toc-main-title">前書き</div>
+        <div class="toc-main-sub">この手引きが何をして、何をしないか</div>
+      </div>
+      <div class="toc-arrow">→</div>
+    </a>
+
+    <a href="#advice" class="toc-item reveal">
+      <div class="toc-num">02</div>
+      <div class="toc-main">
+        <div class="toc-main-title">二人へのアドバイス</div>
+        <div class="toc-main-sub">読み始める前に、6つのヒント</div>
+      </div>
+      <div class="toc-arrow">→</div>
+    </a>
+
+    <a href="#classify" class="toc-item reveal">
+      <div class="toc-num">03</div>
+      <div class="toc-main">
+        <div class="toc-main-title">分類の原則<span class="toc-chip key">KEY</span></div>
+        <div class="toc-main-sub">"生活の柱" と "個人用" を分ける考え方</div>
+      </div>
+      <div class="toc-arrow">→</div>
+    </a>
+
+    <li class="toc-divider">本 文 — MAIN</li>
+
+    <a href="#privacy" class="toc-item reveal">
+      <div class="toc-num jp">壱</div>
+      <div class="toc-main">
+        <div class="toc-main-title">プライバシーを守る技術</div>
+        <div class="toc-main-sub">ロック付きメモ、同期OFF、非表示など具体的な手段</div>
+      </div>
+      <div class="toc-arrow">→</div>
+    </a>
+
+    <a href="#wall" class="toc-item reveal">
+      <div class="toc-num jp">弐</div>
+      <div class="toc-main">
+        <div class="toc-main-title">本体が開いた後に立ちはだかる壁</div>
+        <div class="toc-main-sub">銀行アプリ、証券、2段階認証、LINE、サブスクの突破方法</div>
+      </div>
+      <div class="toc-arrow">→</div>
+    </a>
+
+    <a href="#stock" class="toc-item reveal">
+      <div class="toc-num jp">参</div>
+      <div class="toc-main">
+        <div class="toc-main-title">「借金して取引する口座」が無いか、大至急確認<span class="toc-chip urgent">URGENT</span></div>
+        <div class="toc-main-sub">信用取引・FX・先物は、相続時に最大のリスクになりうる</div>
+      </div>
+      <div class="toc-arrow">→</div>
+    </a>
+
+    <a href="#checklist" class="toc-item reveal">
+      <div class="toc-num jp">肆</div>
+      <div class="toc-main">
+        <div class="toc-main-title">お互いに今からやっておくこと</div>
+        <div class="toc-main-sub">11項目の生前準備チェックリスト</div>
+      </div>
+      <div class="toc-arrow">→</div>
+    </a>
+
+  </ul>
+</section>
+
+<!-- ===== FOUNDATION ===== -->
+<section class="foundation" id="foundation">
+  <div class="floating-kanji f1" data-speed="0.1">託</div>
+  <div class="foundation-inner">
+    <div class="foundation-label reveal">FOUNDATION — 基 本 方 針</div>
+    <h2 class="foundation-title reveal">
+      この手引きの<span class="line-em">立ち位置</span>
+    </h2>
+    <p class="foundation-intro reveal">
+      本題に入る前に、この手引きが何をして、何をしないかを明確にしておく。<br>
+      以下の<strong style="color: var(--paper);">三つの前提</strong>を、お互いに認識した上で読み進めてほしい。
+    </p>
+
+    <div class="principles">
+
+      <div class="principle reveal">
+        <div class="principle-icon">
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="12" y="20" width="40" height="28" stroke="#b89558" stroke-width="1.5" fill="none" rx="2"/>
+            <path d="M12 28 L32 38 L52 28" stroke="#c0432a" stroke-width="1.5" fill="none"/>
+            <circle cx="46" cy="14" r="5" stroke="#f0e8d8" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+        <div class="principle-num">PRINCIPLE I</div>
+        <h3>プライバシーは<br>「権利」である</h3>
+        <p>
+          見せない・知らせないことは、<strong>信頼の欠如ではない</strong>。個人として当然に保障されるべき権利で、相手への感情とは独立して存在する。この区別を、お互いに認識しておく。
+        </p>
+      </div>
+
+      <div class="principle reveal" style="border-color: var(--vermilion); background: linear-gradient(180deg, rgba(192,67,42,0.05) 0%, var(--ink) 100%); position: relative;">
+        <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--vermilion); color: var(--paper); font-family: var(--display); font-size: 9px; letter-spacing: 0.3em; padding: 3px 14px; font-weight: 600;">MOST IMPORTANT</div>
+        <div class="principle-icon">
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="16" y="26" width="32" height="26" stroke="#c0432a" stroke-width="2" fill="none" rx="2"/>
+            <path d="M22 26 V18 Q22 12 28 12 H36 Q42 12 42 18 V26" stroke="#c0432a" stroke-width="2" fill="none"/>
+            <circle cx="32" cy="36" r="2.5" fill="#f0e8d8"/>
+            <path d="M32 38.5 V44" stroke="#f0e8d8" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="principle-num" style="color: var(--vermilion);">PRINCIPLE II — 最重要</div>
+        <h3>実務に必要なのは<br>「<span style="color: var(--vermilion); border-bottom: 2px solid var(--gold); padding-bottom: 2px;">存在</span>」だけ</h3>
+        <p>
+          相続の実務は、<strong>口座の存在さえ把握できれば銀行・証券会社側で進められる</strong>。中身の開示は一切必要ない。<br><br><strong style="color: var(--vermilion);">この事実が、この手引き全体の土台</strong>。ここを理解していれば、「全部見る／見せる」は必要ないと分かる。
+        </p>
+      </div>
+
+      <div class="principle reveal">
+        <div class="principle-icon">
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 48 L32 12 L52 48 Z" stroke="#b89558" stroke-width="1.5" fill="none"/>
+            <path d="M22 40 H42" stroke="#c0432a" stroke-width="1.5"/>
+            <circle cx="32" cy="26" r="2" fill="#f0e8d8"/>
+          </svg>
+        </div>
+        <div class="principle-num">PRINCIPLE III</div>
+        <h3>技術的に<br>境界線を引ける</h3>
+        <p>
+          iPhoneの仕組みを使えば、<strong>見せたい情報と見せたくない情報を技術的に分離できる</strong>。感情論や約束ではなく、システム上の仕組みで境界線を保証する。これが最も確実な方法。
+        </p>
+      </div>
+
+    </div>
+
+    <div class="ornament reveal">以 下 、 本 文</div>
+  </div>
+</section>
+
+<!-- ===== LETTER ===== -->
+<section class="letter" id="letter">
+  <div class="letter-seal">— 前 書 き —</div>
+  <div class="letter-body reveal">
+    <p class="indent">
+      この手引きの目的は、お互いのプライバシーを守りながら、遺された側が実務で困らない状態をつくること。そのために必要なのは、感情や約束ではなく、<strong style="color: var(--gold);">仕組みと手順</strong>。
+    </p>
+    <p class="indent">
+      配偶者に対して「全部知りたい」という気持ちが生まれるのは、人間として自然なこと。同時に、「見せたくない領域がある」というのも、同じように自然なこと。<strong style="color: var(--vermilion);">どちらが正しくて、どちらが間違っているという話ではない。</strong>
+    </p>
+    <p class="indent">
+      この手引きが採る立場は、「どちらの感情も認めた上で、実務的にどう折り合いをつけるか」。見せない領域があっても相続は実行できる。見せたい領域は最小限でも遺族は困らない。その<strong>最適解を、仕組みとして組み立てる</strong>ことに焦点を絞る。
+    </p>
+    <p class="indent">
+      お互いに、この手引きの前提を受け入れられるなら、以下のページを実装していってほしい。<br>受け入れられない部分があれば、それは二人で話し合うしかない領域。
+    </p>
+    <div class="letter-signature">— 仕 組 み と し て 組 み 立 て る —</div>
+  </div>
+</section>
+
+<!-- ===== ADVICE FOR COUPLE ===== -->
+<section class="advice-section" id="advice">
+  <div class="advice-inner">
+    <div class="advice-header reveal">
+      <div class="advice-mark">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle class="pulse-ring" cx="24" cy="24" r="22" stroke="#b89558" stroke-width="1" fill="none" opacity="0.3"/>
+          <circle cx="24" cy="24" r="16" stroke="#c0432a" stroke-width="1.5" fill="none"/>
+          <path class="draw-path" d="M16 24 L22 30 L32 18" stroke="#b89558" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="advice-kicker">ADVICE — 読 み 始 め る 前 に</div>
+      <h2 class="advice-title">二人へのアドバイス</h2>
+    </div>
+
+    <div class="advice-grid">
+
+      <div class="advice-card reveal" style="--delay: 0ms;">
+        <div class="advice-num">01</div>
+        <h3 class="advice-card-title">一気に読まなくていい</h3>
+        <p class="advice-card-body">
+          この手引きは長い。一度に全部理解しようとせず、<strong>気になるところから</strong>読めばいい。順番に読む必要もない。何度も行き来するのが普通。
+        </p>
+      </div>
+
+      <div class="advice-card reveal" style="--delay: 100ms;">
+        <div class="advice-num">02</div>
+        <h3 class="advice-card-title">二人が理解することが理想</h3>
+        <p class="advice-card-body">
+          仕組みを動かすには、<strong>お互いがこの手引きの考え方を知っておく</strong>必要がある。片方だけが理解していても、もう片方が設定していないと機能しない。<strong>相手にも要点だけは伝えておく</strong>のがベスト。
+        </p>
+      </div>
+
+      <div class="advice-card reveal pulse-glow" style="--delay: 200ms; border-color: var(--gold);">
+        <div class="advice-num">03</div>
+        <h3 class="advice-card-title">まずは「相互登録」だけでも</h3>
+        <p class="advice-card-body">
+          この手引きの中で<strong style="color: var(--gold);">最も効果が大きいのは、お互いのiPhoneに「故人アカウント管理連絡先」を登録すること</strong>。他の全項目をやらなくても、これだけで相続時のハードルは劇的に下がる。<strong>今日、二人でこれだけは完了させる</strong>価値がある。
+        </p>
+      </div>
+
+      <div class="advice-card reveal" style="--delay: 300ms;">
+        <div class="advice-num">04</div>
+        <h3 class="advice-card-title">相手の分類に干渉しない</h3>
+        <p class="advice-card-body">
+          何を「個人用」にしたか、相手に聞かないこと。<strong>聞かないのがルール</strong>で、そうすることで仕組みが成立する。これは信頼の話ではなく、設計の話。
+        </p>
+      </div>
+
+      <div class="advice-card reveal" style="--delay: 400ms;">
+        <div class="advice-num">05</div>
+        <h3 class="advice-card-title">気持ちは置いていける</h3>
+        <p class="advice-card-body">
+          「全部知りたい」「見られたくない」——どちらの気持ちも、この仕組みの中では<strong>問題にならない</strong>。技術で境界が引かれるので、感情で悩む必要がない。これが最大の利点。
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== CLASSIFY ===== -->
+<section class="classify-section" id="classify">
+  <div class="classify-inner">
+
+    <div class="classify-intro reveal">
+      <div class="classify-kicker">THE CLASSIFICATION — 分 類 の 原 則</div>
+      <h2 class="classify-title">一人の持ち物を、<br>"生活の柱" と "個人用" に分ける</h2>
+      <p class="classify-desc">
+        旦那もりぴも、それぞれ<strong style="color: var(--paper);">複数の口座・サービス</strong>を持っている。<br>
+        その<strong style="color: var(--gold);">一つ一つ</strong>を「生活の柱」か「個人用」かに分類する。<br>
+        同じ一人の中に、共有すべきものと守るべきものが、<em style="font-style: normal; color: var(--vermilion);">共存</em>する。
+      </p>
+    </div>
+
+    <div class="compare-box reveal">
+      <div class="vs-mark">VS</div>
+
+      <div class="compare-col share">
+        <span class="compare-badge share">SHARE — 共有する</span>
+        <h4>"生活の柱"</h4>
+        <p class="compare-sub">死後すぐ、遺された側の生活に直結する口座・契約。存在を知らないと遺族が路頭に迷うもの。</p>
+        <ul class="compare-list">
+          <li>家計の引落し口座</li>
+          <li>住宅ローン・家の契約</li>
+          <li>生命保険・医療保険</li>
+          <li>給与振込口座</li>
+          <li>共同管理している貯蓄</li>
+          <li>公共料金・通信費の支払い元</li>
+        </ul>
+        <div class="compare-note">
+          <strong>共有するのは「存在」まで。</strong>残高や詳細は見せなくていい。「どの銀行に、何の目的の口座があるか」だけ伝わればOK。
+        </div>
+      </div>
+
+      <div class="compare-col private">
+        <span class="compare-badge private">KEEP — 守るもの</span>
+        <h4>"個人用"</h4>
+        <p class="compare-sub">生前は存在すら共有しなくていい。相続実務には影響せず、必要なら死後に銀行照会等で発見される。</p>
+        <ul class="compare-list">
+          <li>個人用NISA・副業口座</li>
+          <li>趣味のサブスク契約</li>
+          <li>個人用クレジットカード</li>
+          <li>SNS・個人的なメッセージ</li>
+          <li>買い物履歴・閲覧履歴</li>
+          <li>見せたくない写真・メモ</li>
+        </ul>
+        <div class="compare-note">
+          <strong>触れないのが最善。</strong>相続実務上も、個人領域に踏み込む必要はない。ほふり（証券保管振替機構）やマイナンバー照会で後から必要な口座は発見できる仕組みがある。
+        </div>
+      </div>
+    </div>
+
+    <p class="classify-desc reveal" style="margin-top: 48px;">
+      <strong style="color: var(--paper);">お互いに、同じ分類を自分の中で行う。</strong><br>
+      それぞれの「生活の柱」だけをリスト化して相手に渡す。「個人用」は手元に残す。<br>
+      この二つをはっきり分けるのが、この仕組みの核心。
+    </p>
+
+  </div>
+</section>
+
+<!-- ===== PRIVACY TECHNIQUES ===== -->
+<section class="privacy-section" id="privacy">
+  <div class="privacy-inner">
+    <div class="section-header reveal">
+      <div class="section-num">壱</div>
+      <div class="section-title-group">
+        <div class="section-kicker">PRIVACY SHIELDS — プライバシーを守る技術</div>
+        <h2 class="section-title">お互いの領域を<br>技 術 的 に 守 る 方 法</h2>
+        <p class="section-sub">
+          「見せたくない／見られたくない」と言うと重たく聞こえるが、そうじゃない。<br>
+          <strong style="color: var(--gold);">そもそも見れない構造</strong>を最初から作っておく。感情の問題にしないための、技術的な設計。
+        </p>
+      </div>
+    </div>
+
+    <div class="technique-grid">
+
+      <div class="technique reveal">
+        <div class="technique-header">
+          <div class="technique-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#b89558" stroke-width="1.5">
+              <rect x="5" y="11" width="14" height="10" rx="1"/>
+              <path d="M8 11V7a4 4 0 018 0v4"/>
+            </svg>
+          </div>
+          <div class="technique-title">ロック付きメモ</div>
+        </div>
+        <div class="technique-body">
+          iPhone標準「メモ」アプリは<strong>メモ単位でパスワードを設定できる</strong>。ロック付きメモは故人アカウント管理連絡先でも中身が見えない。個人的な記録・ID情報はここに入れる。
+          <br><br>
+          設定方法：メモを開く → 共有ボタン → 「ロック」→ パスワード設定。本体Face IDとは別の独立パスワード。
+        </div>
+        <span class="technique-tag">MEMO LOCK</span>
+      </div>
+
+      <div class="technique reveal">
+        <div class="technique-header">
+          <div class="technique-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#b89558" stroke-width="1.5">
+              <path d="M3 12c0-5 4-9 9-9s9 4 9 9"/>
+              <path d="M3 12v4a2 2 0 002 2h14a2 2 0 002-2v-4"/>
+              <line x1="3" y1="3" x2="21" y2="21" stroke="#c0432a"/>
+            </svg>
+          </div>
+          <div class="technique-title">アプリ別 iCloud同期OFF</div>
+        </div>
+        <div class="technique-body">
+          設定 → 名前 → iCloud → 「すべてを表示」から、<strong>アプリごとにiCloud同期をOFFにできる</strong>。同期OFFのデータは故人アカウント管理連絡先からはアクセス不可。
+          <br><br>
+          例：メモの一部カテゴリだけ同期OFF、写真のみ同期OFFなど粒度を選べる。
+        </div>
+        <span class="technique-tag">iCloud CONTROL</span>
+      </div>
+
+      <div class="technique reveal">
+        <div class="technique-header">
+          <div class="technique-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#b89558" stroke-width="1.5">
+              <rect x="3" y="5" width="18" height="14" rx="2"/>
+              <circle cx="8.5" cy="10.5" r="1.5"/>
+              <path d="M21 15l-5-5L5 19"/>
+            </svg>
+          </div>
+          <div class="technique-title">写真の「非表示」＋「ロック」</div>
+        </div>
+        <div class="technique-body">
+          写真アプリで画像を<strong>「非表示」アルバムに移動</strong>できる。iOS 18以降は非表示アルバム自体に<strong>Face ID / パスコードロック</strong>がかかる。見せたくない画像はここへ。
+          <br><br>
+          さらに iCloud写真の同期をOFFにすれば、Apple経由でもアクセス不可。
+        </div>
+        <span class="technique-tag">PHOTO HIDE</span>
+      </div>
+
+      <div class="technique reveal">
+        <div class="technique-header">
+          <div class="technique-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#b89558" stroke-width="1.5">
+              <path d="M12 2L2 7v6c0 5 4 8 10 9 6-1 10-4 10-9V7l-10-5z"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+          </div>
+          <div class="technique-title">パスワードマネージャの分離</div>
+        </div>
+        <div class="technique-body">
+          1Password / Bitwarden などは<strong>「Vault（金庫）」を複数作れる</strong>。家族共有用Vaultと個人用Vaultを分離し、共有用のみ相手と共有。個人用は独立マスターパスワード。
+          <br><br>
+          iPhoneの「パスワード」アプリ（iCloudキーチェーン）は故人アカウント管理連絡先でもアクセス不可なので、そのまま使うのも手。
+        </div>
+        <span class="technique-tag">VAULT SPLIT</span>
+      </div>
+
+      <div class="technique reveal">
+        <div class="technique-header">
+          <div class="technique-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#b89558" stroke-width="1.5">
+              <rect x="3" y="4" width="18" height="16" rx="2"/>
+              <path d="M3 10h18M9 4v16"/>
+            </svg>
+          </div>
+          <div class="technique-title">「相手へ」メモ専用の運用</div>
+        </div>
+        <div class="technique-body">
+          標準メモアプリに<strong>「相手へ」というタイトルのメモを1つだけ</strong>作る。iCloud同期ON、ロックなし。書くのは「生活の柱」の存在情報と本体パスコードだけ。
+          <br><br>
+          それ以外の一般メモは、別フォルダに入れて同期OFFまたはロック付きに。この<strong>明確な分離</strong>が運用の要。
+        </div>
+        <span class="technique-tag">FOR YOU</span>
+      </div>
+
+      <div class="technique reveal">
+        <div class="technique-header">
+          <div class="technique-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#b89558" stroke-width="1.5">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M12 7v5l3 2"/>
+            </svg>
+          </div>
+          <div class="technique-title">スクリーンタイム制限（応用）</div>
+        </div>
+        <div class="technique-body">
+          特定のアプリにスクリーンタイムでパスコードをかけられる。<strong>個人用のアプリを1つずつロック</strong>することで、本体が開いても個別アプリには入れない層を作れる。
+          <br><br>
+          SNSアプリ、個人用銀行アプリなどに有効。
+        </div>
+        <span class="technique-tag">APP LOCK</span>
+      </div>
+
+    </div>
+
+    <div class="apple-box" style="background: linear-gradient(135deg, var(--ink-2) 0%, var(--ink-3) 100%); border: 1px solid var(--gold-dim); padding: 40px 32px; margin-top: 56px; position: relative;">
+      <h4 style="font-family: var(--mincho); font-weight: 700; font-size: 20px; color: var(--gold); margin-bottom: 16px; letter-spacing: 0.03em;">重要 — プライバシー層は「多層」で使う</h4>
+      <p style="color: var(--paper-dim); font-size: 14.5px; line-height: 1.95;">
+        一つの仕組みに頼ると抜け道ができる。例：iCloud同期はOFFでも、iPhone本体が開けば見える。逆に本体を開けないなら、iCloud同期ONのものは故人アカウント管理連絡先から見える。
+        <br><br>
+        <strong style="color: var(--paper);">重要な個人情報は「ロック付きメモ」＋「iCloud同期OFF」のような組み合わせで二重に守る</strong>。お互いに、自分の領域を技術的に守る責任がある。
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== WALL SECTION ===== -->
+<section class="wall-section" id="wall">
+  <div class="wall-inner">
+    <div class="section-header reveal">
+      <div class="section-num">弐</div>
+      <div class="section-title-group">
+        <div class="section-kicker">AFTER UNLOCK — スマホが開いた、その先</div>
+        <h2 class="section-title">本体が開いた後に<br>立 ち は だ か る 壁</h2>
+        <p class="section-sub">
+          iPhoneのロックが解除できても、<strong style="color: var(--vermilion);">各アプリには別のログイン・生体認証・2段階認証の壁</strong>がある。<br>
+          その一つ一つをどう突破するか、実務的な方法をまとめる。
+        </p>
+      </div>
+    </div>
+
+    <!-- 突破フローの視覚化 -->
+    <div class="wall-visual reveal">
+      <div class="wall-step passed">
+        <div class="wall-step-num">STEP 01</div>
+        <div class="wall-step-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#8fb896" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="18" r="1"/></svg>
+        </div>
+        <div class="wall-step-title">iPhone本体</div>
+        <div class="wall-step-sub">パスコード突破<br>（故人連絡先経由）</div>
+      </div>
+      <div class="wall-step current">
+        <div class="wall-step-num">STEP 02</div>
+        <div class="wall-step-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#c0432a" stroke-width="1.5"><rect x="5" y="11" width="14" height="10" rx="1"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>
+        </div>
+        <div class="wall-step-title">アプリログイン</div>
+        <div class="wall-step-sub">各アプリのID/PW<br>or 生体認証</div>
+      </div>
+      <div class="wall-step">
+        <div class="wall-step-num">STEP 03</div>
+        <div class="wall-step-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#b89558" stroke-width="1.5"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M12 8v4l3 2"/></svg>
+        </div>
+        <div class="wall-step-title">2段階認証</div>
+        <div class="wall-step-sub">SMS / メール<br>認証コード</div>
+      </div>
+      <div class="wall-step">
+        <div class="wall-step-num">STEP 04</div>
+        <div class="wall-step-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#b89558" stroke-width="1.5"><rect x="3" y="6" width="18" height="12" rx="1"/><path d="M3 10h18"/></svg>
+        </div>
+        <div class="wall-step-title">アプリ内操作</div>
+        <div class="wall-step-sub">取引や振込制限<br>確認機能のみ</div>
+      </div>
+      <div class="wall-step">
+        <div class="wall-step-num">STEP 05</div>
+        <div class="wall-step-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#b89558" stroke-width="1.5"><path d="M12 2l9 4v6c0 5-3.5 8-9 10-5.5-2-9-5-9-10V6l9-4z"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <div class="wall-step-title">正規相続手続</div>
+        <div class="wall-step-sub">金融機関の相続窓口<br>書類提出</div>
+      </div>
+    </div>
+
+    <div class="classify-desc reveal" style="text-align: center; margin: 56px auto 24px;">
+      ここからは、<strong style="color: var(--paper);">STEP 02以降の各壁を突破する実務的な方法</strong>。<br>
+      本体が開いている前提（故人アカウント管理連絡先のメモからパスコードを取得済み）で解説する。
+    </div>
+
+    <div class="app-wall-grid">
+
+      <!-- 銀行アプリ -->
+      <div class="app-wall reveal">
+        <div class="app-wall-header">
+          <div class="app-wall-name">🏦 銀行アプリ</div>
+          <span class="app-wall-difficulty difficulty-mid">中難度</span>
+        </div>
+        <ol class="app-wall-steps">
+          <li><strong>アプリを開いてみる。</strong>生体認証要求が出たら、「パスワードでログイン」に切替。</li>
+          <li><strong>パスワードリセット</strong>を選択 → 登録メール or SMS宛にリセットリンク送信。</li>
+          <li>iPhoneに届くSMS / メールが見えるので、そこから<strong>新パスワードを設定</strong>してログイン。</li>
+          <li>ログイン後は<strong>残高確認のみ</strong>。<span style="color: var(--vermilion);">送金・解約はしない。</span>正規の相続手続きが必要。</li>
+          <li>同時並行で銀行の<strong>相続窓口にも連絡</strong>し、正規ルートで解約・移管を進める。</li>
+        </ol>
+      </div>
+
+      <!-- 証券アプリ -->
+      <div class="app-wall reveal" style="border-color: var(--vermilion-deep);">
+        <div class="app-wall-header">
+          <div class="app-wall-name">📈 証券アプリ</div>
+          <span class="app-wall-difficulty difficulty-hard">最優先</span>
+        </div>
+        <ol class="app-wall-steps">
+          <li>銀行アプリと同じ要領で<strong>パスワードリセット</strong>を試みる。</li>
+          <li><strong>取引パスワード（別設定）</strong>が必要な場合あり。これもリセットできる証券会社が多い。</li>
+          <li>ログイン後、<strong>保有銘柄・評価額のスクショ</strong>を撮っておく（相続税申告の資料になる）</li>
+          <li style="background: rgba(192,67,42,0.12); border: 1px solid var(--vermilion); padding: 14px 14px 14px 40px; margin: 8px 0; position: relative; border-radius: 2px;"><strong style="color: var(--vermilion); font-size: 14px;">⚠ 最重要：</strong>信用取引・FX・先物（<strong>借金して取引するタイプ</strong>）が有効かを確認。<span style="color: var(--vermilion); font-weight: 500;">あれば最優先でポジションを止める</span>——詳細は次のセクション。</li>
+          <li>証券会社に電話し、<strong>名義人死亡の届出</strong> → 口座停止 → 相続手続きへ。</li>
+        </ol>
+      </div>
+
+      <!-- 2段階認証 -->
+      <div class="app-wall reveal">
+        <div class="app-wall-header">
+          <div class="app-wall-name">🔐 SMS / Email 2FA</div>
+          <span class="app-wall-difficulty difficulty-easy">低難度</span>
+        </div>
+        <ol class="app-wall-steps">
+          <li>本体が開いていれば、<strong>SMSは受信・閲覧可能</strong>。SIMカードが生きている限り有効。</li>
+          <li>Gmail等も本体から開けるので、<strong>メールの認証コードも読める</strong>。</li>
+          <li>SIMが使えない場合は<strong>別のiPhoneにSIMを挿し替え</strong>てSMS受信する方法もある。</li>
+          <li>キャリアの契約者名義変更が先行すると電話番号が使えなくなる可能性——<strong>変更前に必要な認証は済ませておく</strong>。</li>
+        </ol>
+      </div>
+
+      <!-- Authenticator系 -->
+      <div class="app-wall reveal">
+        <div class="app-wall-header">
+          <div class="app-wall-name">🔑 Authenticator アプリ</div>
+          <span class="app-wall-difficulty difficulty-hard">高難度</span>
+        </div>
+        <div style="background: var(--ink-2); padding: 14px 16px; margin-bottom: 18px; border-left: 3px solid var(--gold); font-size: 13px; line-height: 1.75; color: var(--paper-dim);">
+          <strong style="color: var(--gold); display: block; margin-bottom: 4px;">Authenticator（オーセンティケーター）とは</strong>
+          2段階認証で<strong style="color: var(--paper);">6桁のコードを表示するスマホアプリ</strong>のこと。銀行・証券・SNSなどのログイン時に、パスワードに加えてこの6桁コードを入力する仕組み（=認証システム）。Google Authenticator、Microsoft Authenticator などが代表的。
+        </div>
+        <ol class="app-wall-steps">
+          <li>Google / Microsoft Authenticator などのアプリは<strong>本体にしか入っていない</strong>。本体が開けば使える。</li>
+          <li>本体が開けない場合は<strong>突破不可</strong>。各サービスの「バックアップコード」（印刷保管してあるはず）か、相続窓口からの再登録しかない。</li>
+          <li>バックアップコードは<strong>生前に印刷して金庫に入れる</strong>のが理想。</li>
+          <li>基本的にはこのアプリに依存しすぎないように、生前に設計しておく。</li>
+        </ol>
+      </div>
+
+      <!-- LINE / メッセンジャー -->
+      <div class="app-wall reveal">
+        <div class="app-wall-header">
+          <div class="app-wall-name">💬 LINE・メッセージ</div>
+          <span class="app-wall-difficulty difficulty-mid">中難度</span>
+        </div>
+        <ol class="app-wall-steps">
+          <li>LINEは本体が開けば<strong>ログイン状態のまま使える</strong>。連絡先・グループ一覧が見られる。</li>
+          <li>訃報の連絡先特定には便利。結局<strong>トーク内容も目に入る</strong>ので、ショックを受ける情報が出てくる可能性がある覚悟はしておく。</li>
+          <li>LINE Pay等の残高は正式な相続手続きが必要（LINE公式ヘルプ参照）</li>
+          <li>トーク履歴の引き継ぎは原則不可。端末初期化で全て失われる。残したい会話は<strong>見つけたタイミングでスクショ</strong>。</li>
+        </ol>
+      </div>
+
+      <!-- サブスク解約 -->
+      <div class="app-wall reveal">
+        <div class="app-wall-header">
+          <div class="app-wall-name">🔁 サブスク解約</div>
+          <span class="app-wall-difficulty difficulty-easy">低難度</span>
+        </div>
+        <ol class="app-wall-steps">
+          <li><strong>Apple設定 → 名前 → サブスクリプション</strong>でiTunes経由の契約が一覧。ここは簡単に解約できる。</li>
+          <li>Google Playの場合は<strong>Playストア → アカウント → 定期購入</strong>。</li>
+          <li>アプリ外契約（Spotify公式、Netflix、各種有料サイト等）は<strong>各サービスのWebから解約</strong>。メール履歴で契約先を確認。</li>
+          <li>クレカ明細・通帳の引き落とし履歴で<strong>定期引き落としを全洗い出し</strong> → 1つずつ止める。</li>
+          <li style="background: rgba(184,149,88,0.1); border: 1px solid var(--gold-dim); padding: 14px 14px 14px 40px; margin: 8px 0; border-radius: 2px;"><strong style="color: var(--gold); font-size: 14px;">重要：</strong>解約画面が見つからない／契約先が分からない引き落としでも、<strong>泣き寝入りしない</strong>。引き落とし明細の会社名で検索して連絡先を調べ、<strong>電話やお問い合わせフォームから「契約者死亡のため解約希望」と直接連絡する</strong>。多くの会社は遡って解約・返金対応してくれる。</li>
+          <li>引き落としが続いてしまった場合も、<strong>気付いた時点で連絡すれば、過去分の返金対応をしてくれる会社もある</strong>（業者次第）。諦めず連絡を。</li>
+        </ol>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== STOCK URGENT ===== -->
+<section class="fx-section" id="stock">
+  <div class="section-header reveal">
+    <div class="section-num">参</div>
+    <div class="section-title-group">
+      <div class="section-kicker" style="color: var(--vermilion);">⚠ TOP PRIORITY — 最 優 先 確 認 事 項</div>
+      <div class="kabu-label">
+        <span class="kabu-char">株</span>
+        <span class="kabu-en">STOCK &nbsp;·&nbsp; 証 券 口 座 の 話</span>
+      </div>
+      <h2 class="section-title">
+        「借金して取引する口座」が<br>
+        <span style="color: var(--vermilion); background: linear-gradient(transparent 80%, rgba(192,67,42,0.3) 80%); padding: 0 4px;">無 い か</span>、
+        大 至 急 確 認。
+      </h2>
+      <p class="section-sub">
+        他の全ての項目より、これを先にやる価値がある。<br>
+        <strong style="color: var(--vermilion);">放置した場合のリスクが、他の何よりも大きい</strong>から。
+      </p>
+    </div>
+  </div>
+
+  <!-- STOP バナー -->
+  <div class="stop-banner reveal pulse-glow">
+    <div class="stop-banner-icon">
+      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="32" cy="32" r="28" stroke="#c0432a" stroke-width="3" fill="rgba(192,67,42,0.12)"/>
+        <path d="M20 32 L44 32" stroke="#c0432a" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="stop-banner-text">
+      <div class="stop-banner-label">STOP &amp; CHECK</div>
+      <div class="stop-banner-title">今すぐ配偶者に確認してほしいこと</div>
+      <div class="stop-banner-body">
+        「<strong>信用取引・FX・先物</strong>、やってる？」と、この手引きの他の話を始める前に聞いておく。<br>
+        <strong style="color: var(--vermilion);">やっている場合、相続時の最大の地雷になる可能性がある</strong>。
+      </div>
+    </div>
+  </div>
+
+  <div class="fx-card reveal">
+
+    <!-- 巨大警告：地雷になる -->
+    <div class="landmine-warning">
+      <div class="landmine-bg">
+        <svg viewBox="0 0 200 200" fill="none" preserveAspectRatio="none">
+          <path d="M100 20 L180 100 L100 180 L20 100 Z" stroke="#c0432a" stroke-width="0.5" fill="none" opacity="0.2"/>
+        </svg>
+      </div>
+      <div class="landmine-inner">
+        <div class="landmine-label">IF YES — やっている場合</div>
+        <div class="landmine-main">
+          相続時の<br>
+          <span class="landmine-huge">最大の地雷</span><br>
+          になる。
+        </div>
+        <div class="landmine-sub">預けていた金額を大幅に超える借金が、遺族に残される可能性があります。</div>
+      </div>
+    </div>
+
+    <h3>なぜ、これだけは別格に危険なのか</h3>
+
+    <!-- 主婦向け例え話ブロック -->
+    <div class="analogy-box">
+      <div class="analogy-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#b89558" stroke-width="1.5" style="width:18px;height:18px;vertical-align:middle;margin-right:8px;"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 015.8 1c0 2-3 3-3 3M12 17h.01"/></svg>
+        <span>例えば、買い物で考えると</span>
+      </div>
+
+      <div class="analogy-compare">
+        <div class="analogy-col safe">
+          <div class="analogy-col-label">ふつうの株（現物株）</div>
+          <div class="analogy-col-title">買ったバッグと同じ</div>
+          <p>10万円でバッグを買ったら、<strong>最悪でも10万円が消える</strong>だけ。そのバッグが流行遅れで5万円になっても、損は5万円で止まる。<strong style="color: var(--green);">それ以上の請求は来ない。</strong></p>
+        </div>
+
+        <div class="analogy-arrow">←→</div>
+
+        <div class="analogy-col danger">
+          <div class="analogy-col-label">信用取引・FX・先物</div>
+          <div class="analogy-col-title">お金を借りて買う</div>
+          <p>10万円預けて、<strong>100万円分の取引</strong>をする。うまくいけば儲けも10倍、でも失敗すれば<strong style="color: var(--vermilion);">預けた10万円を超えて、借金を返さなきゃいけない</strong>。どれだけ借金が膨らむかは相場次第。</p>
+        </div>
+      </div>
+
+      <div class="analogy-conclusion">
+        <strong>一番怖いのは、持ち主が亡くなって操作できなくなった後も、市場は動き続けること。</strong>誰も止める人がいないまま、時間とともに借金が膨らんでいく。気付いた時には、預けた金額の何倍もの損失になっていた——という事例が実際にある。
+      </div>
+    </div>
+
+    <p style="font-size: 17px; line-height: 2; padding: 20px 24px; background: rgba(192,67,42,0.08); border-left: 4px solid var(--vermilion); margin-bottom: 24px;">
+      <strong style="color: var(--paper); font-size: 18px;">信用取引・FX・先物は、「借金をして取引する仕組み」。</strong><br>
+      これが、普通の株（現物株）との決定的な違い。
+    </p>
+    <p>
+      ふつうの株（現物株）なら、株価が下がっても<strong>持っていた金額の範囲で損失が止まる</strong>。預けたお金が0円になることはあっても、それ以上は請求されない。
+    </p>
+    <p>
+      でも<strong style="color: var(--vermilion);">信用取引・FX・先物は違う</strong>。相場が悪い方に動くと、<strong>預けたお金を超えて借金が発生する</strong>。本人が操作できない状態で市場が動き続けると、損失が時間とともに膨らんでいく。
+    </p>
+    <p style="background: var(--ink); padding: 18px 22px; border: 1px dashed var(--vermilion-deep); margin-top: 20px;">
+      <strong style="color: var(--vermilion);">実際の報告事例：</strong>遺族が気付いた時には、預けていたお金を大幅に超える借金が発生していたケースがある。他のどの項目よりも、これが最優先の理由。
+    </p>
+
+    <div class="fx-actions">
+      <div class="fx-action">
+        <div class="fx-action-num">ACTION 01</div>
+        <div class="fx-action-title">証券会社を特定する</div>
+        <div class="fx-action-body">
+          iPhoneアプリ一覧（SBI証券・楽天証券・マネックス・松井など）、メール検索「取引報告」「約定」、通帳の証券会社への振込履歴。<strong>どこで取引していたか</strong>を1秒でも早く突き止める。
+        </div>
+      </div>
+      <div class="fx-action">
+        <div class="fx-action-num">ACTION 02</div>
+        <div class="fx-action-title">証券会社へ電話</div>
+        <div class="fx-action-body">
+          「名義人が亡くなった。信用取引やFXで持っているポジションがあるか確認したい」と伝える。配偶者であることを証明すれば、状況を教えてくれる。電話番号は公式サイトで「相続手続き」と検索。
+        </div>
+      </div>
+      <div class="fx-action">
+        <div class="fx-action-num">ACTION 03</div>
+        <div class="fx-action-title">ポジションの決済を依頼</div>
+        <div class="fx-action-body">
+          損失が膨らむのを止めるため、<strong>「反対売買」（持っているポジションを処分する操作）</strong>を証券会社に依頼できる場合がある。相続手続きが全部終わる前でも、これで損失拡大は止められる。
+        </div>
+      </div>
+      <div class="fx-action">
+        <div class="fx-action-num">ACTION 04</div>
+        <div class="fx-action-title">相続放棄の検討</div>
+        <div class="fx-action-body">
+          もし損失が他の資産（預金・家など）の合計を超えそうなら、<strong>相続放棄（死亡を知ってから3ヶ月以内）</strong>という選択肢がある。一人で判断せず、税理士か司法書士に即相談。
+        </div>
+      </div>
+    </div>
+
+    <p style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 13px;">
+      <strong style="color: var(--gold);">生前にできる最低限の配慮：</strong>株取引をしているなら、<strong>証券会社の名前だけ</strong>は相手に伝わるようにしておく（「相手へ」メモに書くだけでいい）。銘柄・残高・建玉内容は秘密のままで大丈夫。遺族は連絡先さえ知っていれば、あとは証券会社側が全部処理してくれる。
+    </p>
+  </div>
+</section>
+
+<!-- ===== CHECKLIST ===== -->
+<section class="section" id="checklist">
+  <div class="section-header reveal">
+    <div class="section-num">肆</div>
+    <div class="section-title-group">
+      <div class="section-kicker">PREPARATION — 生前の準備</div>
+      <h2 class="section-title">お互いに今から<br>や っ て お く こ と</h2>
+      <p class="section-sub">
+        ここから先は<strong style="color: var(--gold);">お互いが、それぞれ独立して</strong>自分の手でやる作業。<br>
+        相手の作業には干渉しない。それがこの仕組みのルール。
+      </p>
+    </div>
+  </div>
+
+  <div class="checklist reveal">
+    <div class="checklist-label">MUTUAL CHECKLIST</div>
+    <h3>お 互 い に 準 備 す る リ ス ト</h3>
+    <ul class="check-list">
+      <li>
+        <strong>iPhone「故人アカウント管理連絡先」にお互いを登録</strong>
+        設定 → 名前 → サインインとセキュリティ → 故人アカウント管理連絡先。二人それぞれ、相手を登録。所要5分。
+      </li>
+      <li>
+        <strong>アクセスキーを紙に印刷 → 金庫に保管</strong>
+        メッセージのみだと機種変・端末故障で消える可能性。紙が確実。保管場所はお互いに共有しておく。
+      </li>
+      <li>
+        <strong>「相手へ」メモを作成（iCloud同期ON・ロックなし）</strong>
+        書くのは「生活の柱」のみ：iPhoneパスコード／家計関連の金融機関名／家族保険／緊急連絡先／<strong>株取引（特に信用取引・FX）をしている場合は証券会社名</strong>。残高・個人用口座は書かない。
+      </li>
+      <li>
+        <strong>個人用のメモ・情報は「ロック付きメモ」へ</strong>
+        ロック付きメモは故人アカウント管理連絡先でもアクセス不可。個人的な記録はここで守られる。
+      </li>
+      <li>
+        <strong>個人用写真は「非表示アルバム」＋「iCloud写真同期OFF」の多層防御</strong>
+        iOS 18以降は非表示アルバム自体がFace IDロック。複数の層で守る。
+      </li>
+      <li>
+        <strong>自分の持ち物を「生活の柱」と「個人用」に分類する</strong>
+        口座・サービス一つ一つについて「相手に存在を共有すべきか」で仕分ける。この分類作業自体が、一番大事なステップ。
+      </li>
+      <li>
+        <strong>Authenticatorアプリのバックアップコードを印刷</strong>
+        Google/Microsoft Authenticatorなどは本体にしか無い。バックアップコードを紙で金庫へ。
+      </li>
+      <li>
+        <strong>Googleの「アカウント無効化管理ツール」も設定</strong>
+        Gmail・ドライブの同等機能。一定期間未ログインで指定連絡先へ権限を渡す。
+      </li>
+      <li>
+        <strong>相手の生年月日を正確に暗記</strong>
+        Apple申請で必要。お互いに自問しておく。
+      </li>
+      <li>
+        <strong>年に一度「終活メモ」の更新日を決める</strong>
+        誕生日や結婚記念日。新しい口座・サービスの追随と、分類の再確認を一緒にやる日。
+      </li>
+      <li>
+        <strong>相手の作業には干渉しない</strong>
+        「何を個人用にしてるの？」とは聞かない。相手の分類は相手の領域。この<strong>不可侵のルール</strong>を守ることで、仕組みが成立する。
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<section class="footer-letter">
+  <div class="footer-letter-mark">結</div>
+  <p class="reveal">
+    この手引きは、感情や信頼の話ではなく、<br>
+    <strong style="color: var(--gold);">権利と仕組みの話</strong>として書いた。
+  </p>
+  <p class="reveal">
+    お互いに「見せたい」「見たい」という気持ちがあっても、<br>
+    なくても、仕組みは同じように機能する。<br>
+    どちらにとっても安全な、技術的な境界線をつくる——<br>
+    それが、この手引きの目的。
+  </p>
+  <p class="reveal">
+    急がなくていい。完璧でなくてもいい。<br>
+    一つずつ、それぞれが自分のペースで整えていけばいい。
+  </p>
+  <div class="sign reveal">— 仕 組 み と し て 残 す —</div>
+  <div class="footer-meta">Digital Legacy Guide <span style="color: var(--vermilion);">·</span> Privacy-First <span style="color: var(--vermilion);">·</span> 2026</div>
+</section>
+
+</main>
+
+<script>
+  // Scroll reveal with stagger support
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Unobserve once visible to avoid repeated triggers
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => observer.observe(el));
+
+  // Stagger children within card grids
+  document.querySelectorAll('.card-grid, .warning-grid, .app-wall-grid, .technique-grid, .principles, .advice-grid').forEach(grid => {
+    Array.from(grid.children).forEach((child, i) => {
+      if (!child.style.transitionDelay) {
+        child.style.transitionDelay = `${Math.min(i * 80, 500)}ms`;
+      }
+    });
+  });
+
+  // Subtle parallax for floating decorations (only on large screens to save mobile battery)
+  if (window.matchMedia('(min-width: 768px)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const floats = document.querySelectorAll('.floating-kanji');
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const y = window.scrollY;
+          floats.forEach(el => {
+            const speed = parseFloat(el.dataset.speed || '0.15');
+            el.style.transform = `translateY(${y * speed * -1}px)`;
+          });
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
+
+  // Smooth scroll with offset for anchor links (fixes mobile header overlap)
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const targetId = this.getAttribute('href').slice(1);
+      const target = document.getElementById(targetId);
+      if (target) {
+        e.preventDefault();
+        const top = target.getBoundingClientRect().top + window.scrollY - 20;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
